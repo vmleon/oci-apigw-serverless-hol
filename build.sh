@@ -11,37 +11,15 @@ banner()
   echo "+------------------------------------------+"
 }
 
-checkpoint()
-{
-  if [ $? -ne 0 ]; then
-    exit $?
-  fi
-}
-
 if [ -z "$BASE_DIR" ]
 then
   export BASE_DIR=$(pwd)
 fi
 
-banner "Terraform Init"
-cd $BASE_DIR/terraform
-terraform init
-checkpoint
-
-banner "Terraform Apply"
-terraform apply -auto-approve
-checkpoint
-
-sleep 30
-
-banner "Ansible Provisioning"
-export ANSIBLE_HOST_KEY_CHECKING=False
-ansible-playbook -i generated/app.ini ../ansible/server/server.yaml
-checkpoint
-
-banner "Output"
-terraform output
-checkpoint
+banner "Build web"
+cd $BASE_DIR/web
+npm install
+NODE_ENV=production npm run build
 
 cd $BASE_DIR
 
