@@ -28,6 +28,10 @@ function createClientResource() {
 > container-enginetype: podman
 > ```
 
+```
+fn start
+```
+
 Create Context:
 ```
 fn create context <my-context> --provider oracle
@@ -38,7 +42,7 @@ Use context:
 fn use context <my-context>
 ```
 
-Use a OCI profile (_DEFAULT_):
+Use an OCI CLI profile (_DEFAULT_):
 ```
 fn update context oracle.profile <profile-name>
 ```
